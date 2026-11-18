@@ -378,6 +378,66 @@ answers:[
 correct:0
 },
 
+{
+mission:"REACTOR CORE",
+question:"The reactor must launch a probe. Which change would MOST increase its kinetic energy?",
+answers:[
+"Increase speed",
+"Change color",
+"Make it colder",
+"Make it shorter"
+],
+correct:0
+},
+
+{
+mission:"REACTOR CORE",
+question:"Two flywheels have the same mass. Which stores more kinetic energy?",
+answers:[
+"The faster one",
+"The slower one",
+"Both the same",
+"Impossible to know"
+],
+correct:0
+},
+
+{
+mission:"REACTOR CORE",
+question:"A parked rover begins moving. What happens to its kinetic energy?",
+answers:[
+"It increases",
+"It decreases",
+"It disappears",
+"It stays zero"
+],
+correct:0
+},
+
+{
+mission:"REACTOR CORE",
+question:"Which object has kinetic energy?",
+answers:[
+"A rolling bowling ball",
+"A book on a shelf",
+"A parked spaceship",
+"A sleeping astronaut"
+],
+correct:0
+},
+
+{
+mission:"REACTOR CORE",
+question:"The AI needs more kinetic energy. Which is best?",
+answers:[
+"Increase speed and mass",
+"Paint the object",
+"Decrease motion",
+"Add lights"
+],
+correct:0
+},
+
 // THERMAL CONTROL
 
 {
@@ -436,6 +496,66 @@ answers:[
 "Wind",
 "Sunlight",
 "Gravity"
+],
+correct:0
+},
+
+{
+mission:"THERMAL CONTROL",
+question:"Which object would likely feel colder to your hand?",
+answers:[
+"A metal spoon",
+"A blanket",
+"A pillow",
+"A paper towel"
+],
+correct:0
+},
+
+{
+mission:"THERMAL CONTROL",
+question:"Which transfer method moves energy through empty space?",
+answers:[
+"Conduction",
+"Radiation",
+"Convection",
+"Friction"
+],
+correct:1
+},
+
+{
+mission:"THERMAL CONTROL",
+question:"Boiling water circulates because of:",
+answers:[
+"Radiation",
+"Conduction",
+"Convection",
+"Gravity only"
+],
+correct:2
+},
+
+{
+mission:"THERMAL CONTROL",
+question:"Heat naturally moves from:",
+answers:[
+"Hot to cold",
+"Cold to hot",
+"Higher mass to lower mass",
+"Fast to slow"
+],
+correct:0
+},
+
+{
+mission:"THERMAL CONTROL",
+question:"Why does a metal pan handle become hot?",
+answers:[
+"Conduction",
+"Radiation",
+"Convection",
+"Reflection"
 ],
 correct:0
 },
@@ -502,6 +622,68 @@ answers:[
 correct:1
 },
 
+{
+mission:"SUSTAINABILITY LAB",
+question:"Which resource is NONRENEWABLE?",
+answers:[
+"Wind",
+"Sunlight",
+"Coal",
+"Moving water"
+],
+correct:2
+},
+
+{
+mission:"SUSTAINABILITY LAB",
+question:"Why do scientists encourage recycling?",
+answers:[
+"To reduce waste",
+"To increase pollution",
+"To use more resources",
+"To slow manufacturing"
+],
+correct:0
+},
+
+{
+mission:"SUSTAINABILITY LAB",
+question:"Which product is made from natural resources?",
+answers:[
+"Paper",
+"Plastic",
+"Aluminum foil",
+"Computer chip"
+],
+correct:0
+},
+
+{
+mission:"SUSTAINABILITY LAB",
+question:"Which energy source replenishes naturally?",
+answers:[
+"Coal",
+"Petroleum",
+"Natural Gas",
+"Wind"
+],
+correct:3
+},
+
+{
+mission:"SUSTAINABILITY LAB",
+question:"A sustainable choice would be:",
+answers:[
+"Using renewable materials",
+"Throwing away reusable items",
+"Using more fossil fuels",
+"Avoiding recycling"
+],
+correct:0
+},
+
+
+
 // JUMP DRIVE
 
 {
@@ -562,6 +744,66 @@ answers:[
 "Momentum transfer"
 ],
 correct:1
+},
+
+{
+mission:"JUMP DRIVE",
+question:"Which object has the greatest gravitational potential energy?",
+answers:[
+"A satellite far above Earth",
+"A rock on the ground",
+"A pencil on a desk",
+"A ball in a drawer"
+],
+correct:0
+},
+
+{
+mission:"JUMP DRIVE",
+question:"As a roller coaster climbs higher, potential energy:",
+answers:[
+"Increases",
+"Decreases",
+"Disappears",
+"Becomes heat only"
+],
+correct:0
+},
+
+{
+mission:"JUMP DRIVE",
+question:"What kind of energy is stored in a stretched spring?",
+answers:[
+"Elastic Potential Energy",
+"Thermal Energy",
+"Kinetic Energy",
+"Radiant Energy"
+],
+correct:0
+},
+
+{
+mission:"JUMP DRIVE",
+question:"As a ball rolls downhill, potential energy changes into:",
+answers:[
+"Kinetic Energy",
+"Chemical Energy",
+"Sound Only",
+"Radiant Energy"
+],
+correct:0
+},
+
+{
+mission:"JUMP DRIVE",
+question:"Which statement supports conservation of energy?",
+answers:[
+"Energy changes form",
+"Energy is created from nothing",
+"Energy disappears completely",
+"Energy can be destroyed"
+],
+correct:0
 }
 
 ];
@@ -634,6 +876,12 @@ document.getElementById("score").innerHTML=
 setTimeout(()=>{
 
 current++;
+
+if(current == 4 || current == 8 || current == 12 || current == 16 || current == 20 || current == 24 || current == 28 || current == 32 || current == 36 || current == 40){
+
+showCaptainLog();
+return;
+}
 
 if(current === 5){
  
