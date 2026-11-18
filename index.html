@@ -98,6 +98,28 @@ h1{
     ❤️ ❤️ ❤️
 </div>
 
+<div id="learningTarget"
+style="
+background:#102040;
+padding:15px;
+margin-top:10px;
+border-radius:10px;
+">
+
+<b>Learning Target:</b><br>
+I can explain how mass and speed affect kinetic energy.
+
+<br><br>
+
+<b>Success Criteria:</b>
+<ul id="successCriteria">
+<li>Identify objects with kinetic energy.</li>
+<li>Compare kinetic energy using mass and speed.</li>
+<li>Explain how motion affects energy.</li>
+</ul>
+
+</div>
+
 <div id="score">
 Science Credits: 0
 </div>
@@ -811,6 +833,7 @@ correct:0
 loadQuestion();
 
 function loadQuestion(){
+updateLearningTarget();
 
 let q=questions[current];
 
@@ -1086,6 +1109,76 @@ function updateSystems(){
     "🟢 Jump Drive"
     :
     "🔴 Jump Drive");
+}
+
+function updateLearningTarget(){
+
+    let target = "";
+    let criteria = "";
+
+    if(current < 10){
+
+        target =
+        "I can explain how mass and speed affect kinetic energy.";
+
+        criteria = `
+        <li>I can identify objects with kinetic energy.</li>
+        <li>I can compare kinetic energy between objects.</li>
+        <li>I can explain how speed affects kinetic energy.</li>
+        `;
+
+    }
+
+    else if(current < 20){
+
+        target =
+        "I can explain how thermal energy moves.";
+
+        criteria = `
+        <li>I can identify conduction.</li>
+        <li>I can identify convection.</li>
+        <li>I can explain how radiation transfers energy.</li>
+        `;
+
+    }
+
+    else if(current < 30){
+
+        target =
+        "I can evaluate how humans use and conserve natural resources.";
+
+        criteria = `
+        <li>I can identify renewable resources.</li>
+        <li>I can identify nonrenewable resources.</li>
+        <li>I can explain why recycling is important.</li>
+        `;
+
+    }
+
+    else{
+
+        target =
+        "I can explain potential energy and conservation of energy.";
+
+        criteria = `
+        <li>I can identify situations with potential energy.</li>
+        <li>I can describe energy transformations.</li>
+        <li>I can explain conservation of energy.</li>
+        `;
+
+    }
+
+    document.getElementById("learningTarget")
+        .innerHTML =
+
+        "<b>Learning Target:</b><br>" +
+        target +
+
+        "<br><br><b>Success Criteria:</b>" +
+
+        "<ul>" +
+        criteria +
+        "</ul>";
 }
 
 </script>
