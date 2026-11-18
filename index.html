@@ -78,7 +78,10 @@ h1{
 <h1>🚀 ESCAPE THE SINGULARITY 🚀</h1>
 
 <div id="mission"></div>
-
+<div id="statusBar">
+    Hull Integrity:
+    ❤️ ❤️ ❤️
+</div>
 <div id="progressBar">
 <div id="progress"></div>
 </div>
@@ -99,6 +102,7 @@ Science Credits: 0
 
 let score=0;
 let current=0;
+let hull = 3;
 
 const questions=[
 
@@ -404,6 +408,14 @@ document.getElementById("feedback").innerHTML=
 
 document.getElementById("feedback").innerHTML=
 "❌ Not quite. Review the science concept and try the next challenge.";
+hull--;
+
+updateHull();
+
+if(hull <= 0){
+    gameOver();
+    return;
+}
 }
 
 document.getElementById("score").innerHTML=
@@ -425,6 +437,18 @@ loadQuestion();
 
 },1200);
 
+}
+
+function updateHull(){
+
+    let hearts = "";
+
+    for(let i=0;i<hull;i++){
+        hearts+="❤️ ";
+    }
+
+    document.getElementById("statusBar").innerHTML =
+        "Hull Integrity: " + hearts;
 }
 
 function showEnding(){
