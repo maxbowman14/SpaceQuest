@@ -883,29 +883,25 @@ showCaptainLog();
 return;
 }
 
-if(current === 5){
- 
-showMissionComplete(
-"REACTOR CORE"
-);
- 
-return;
-}
- 
 if(current === 10){
- 
-showMissionComplete(
-"THERMAL CONTROL"
-);
- 
-return;
+   showMissionComplete("REACTOR CORE");
+   return;
 }
- 
-if(current === 15){
- 
-showMissionComplete(
-"SUSTAINABILITY LAB"
-);
+
+if(current === 20){
+   showMissionComplete("THERMAL CONTROL");
+   return;
+}
+
+if(current === 30){
+   showMissionComplete("SUSTAINABILITY LAB");
+   return;
+}
+
+if(current === 40){
+   showMissionComplete("JUMP DRIVE");
+   return;
+}
  
 return;
 }else if(current >= questions.length){
