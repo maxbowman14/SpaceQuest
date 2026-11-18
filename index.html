@@ -75,10 +75,15 @@ h1{
 
 <div id="game">
 
-<h1>🚀 ESCAPE THE SINGULARITY 🚀</h1>
+<h1>🚀 SPACE QUEST 🚀</h1>
 
 <div id="mission"></div>
-
+<div id="systems">
+🔴 Reactor Core<br>
+🔴 Thermal Control<br>
+🔴 Sustainability Lab<br>
+🔴 Jump Drive
+</div>
 <div id="progressBar">
 <div id="progress"></div>
 </div>
@@ -595,7 +600,7 @@ let percent=(current/questions.length)*100;
 
 document.getElementById("progress").style.width=
 percent+"%";
-
+updateSystems();
 }
 
 function checkAnswer(choice){
@@ -630,16 +635,34 @@ setTimeout(()=>{
 
 current++;
 
-if(current === 5 ||
-   current === 10 ||
-   current === 15){
-
-    showCaptainLog();
-    return;
-
+if(current === 5){
+ 
+showMissionComplete(
+"REACTOR CORE"
+);
+ 
+return;
+}
+ 
+if(current === 10){
+ 
+showMissionComplete(
+"THERMAL CONTROL"
+);
+ 
+return;
+}
+ 
+if(current === 15){
+ 
+showMissionComplete(
+"SUSTAINABILITY LAB"
+);
+ 
+return;
 }else if(current >= questions.length){
 
-    showCaptainLog(); // Final log before ending
+    showEnding(); // Final log before ending
     return;
 
 }else{
@@ -725,6 +748,93 @@ Play Again
 </button>`;
 
 document.getElementById("feedback").innerHTML="";
+}
+
+function showMissionComplete(systemName){
+
+    document.getElementById("mission").innerHTML =
+        "SYSTEM RESTORED";
+
+    document.getElementById("question").innerHTML =
+        `
+        ✅ ${systemName} ONLINE
+
+        Repairs complete.
+
+        New systems have been unlocked.
+        `;
+
+    document.getElementById("answers").innerHTML = "";
+
+    const btn = document.createElement("button");
+
+    btn.className="answer";
+
+    btn.innerHTML="View Captain's Log";
+
+    btn.onclick=()=>{
+        showCaptainLog();
+    };
+
+    document.getElementById("answers")
+        .appendChild(btn);
+}
+function gameOver(){
+
+    document.getElementById("mission").innerHTML =
+        "MISSION FAILED";
+
+    document.getElementById("question").innerHTML =
+        `
+        Hull integrity has reached zero.
+
+        The Event Horizon XII
+        was consumed by the singularity.
+
+        Science Credits:
+        ${score}
+        `;
+
+    document.getElementById("answers").innerHTML =
+        `
+        <button class="answer"
+        onclick="location.reload()">
+            Restart Mission
+        </button>
+        `;
+
+    document.getElementById("feedback").innerHTML="";
+}
+function updateSystems(){
+
+    document.getElementById("systems")
+    .innerHTML =
+
+    (current>=5 ?
+    "🟢 Reactor Core<br>"
+    :
+    "🔴 Reactor Core<br>")
+
+    +
+
+    (current>=10 ?
+    "🟢 Thermal Control<br>"
+    :
+    "🔴 Thermal Control<br>")
+
+    +
+
+    (current>=15 ?
+    "🟢 Sustainability Lab<br>"
+    :
+    "🔴 Sustainability Lab<br>")
+
+    +
+
+    (current>=20 ?
+    "🟢 Jump Drive"
+    :
+    "🔴 Jump Drive");
 }
 
 </script>
