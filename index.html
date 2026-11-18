@@ -105,6 +105,210 @@ let score=0;
 let current=0;
 let hull = 3;
 
+let currentLog = 0;
+
+const captainLogs = [
+
+`CAPTAIN'S LOG 01
+
+Stardate 4721.4
+
+The Event Horizon XII continues its survey
+of the GJ 1132 system.
+
+Earlier today, a micrometeor strike damaged
+one of the reactor's primary flywheels.
+
+Chief Engineer Alvarez reminded the crew
+that kinetic energy depends on both mass
+and motion. The heavier flywheels retained
+far more energy than the smaller backups.
+
+Repairs are underway.
+
+The crew remains optimistic.`,
+
+`CAPTAIN'S LOG 02
+
+Stardate 4722.1
+
+Life support temperatures remain stable,
+but a coolant leak developed near Thermal
+Control Deck.
+
+Our engineers observed heat flowing from
+warmer components toward cooler sections
+of the ship until equilibrium was reached.
+
+The principles may seem simple in the
+classroom, but understanding thermal energy
+can mean the difference between survival
+and catastrophe in deep space.
+
+Repairs continue.`,
+
+`CAPTAIN'S LOG 03
+
+Stardate 4723.7
+
+Long-range sensors have detected unusual
+energy emissions near the black hole.
+
+The emissions crossed the vacuum of space
+without requiring matter to carry them.
+
+Science Officer Patel confirmed the signal
+arrived through electromagnetic radiation.
+
+The source remains unidentified.
+
+Several crew members have requested
+additional scans.`,
+
+`CAPTAIN'S LOG 04
+
+Stardate 4725.2
+
+The Sustainability Division completed its
+monthly resource audit.
+
+Recycling systems have reduced waste by
+42 percent compared with previous quarters.
+
+The manufacturing AI recommends increasing
+the use of renewable materials whenever
+possible.
+
+The lesson is clear.
+
+Whether aboard a spacecraft or on Earth,
+conserving resources increases the chances
+of long-term survival.`,
+
+`CAPTAIN'S LOG 05
+
+Stardate 4727.0
+
+A research probe launched toward the
+anomaly has unexpectedly changed course.
+
+Navigation analysts report the probe passed
+near an object with extraordinary mass.
+
+The stronger gravitational attraction altered
+the probe's path significantly.
+
+Current models cannot explain the readings.
+
+Further investigation has been authorized.`,
+
+`CAPTAIN'S LOG 06
+
+Stardate 4728.5
+
+A power failure occurred in Cargo Bay Three.
+
+Several supply containers descended
+along emergency rails after magnetic locks
+disengaged.
+
+As the containers lost height,
+their gravitational potential energy
+transformed into kinetic energy.
+
+Fortunately, emergency dampers engaged
+before impact.
+
+No injuries reported.`,
+
+`CAPTAIN'S LOG 07
+
+Stardate 4730.8
+
+A repeating signal has begun appearing
+inside the sensor static.
+
+The transmission originates from within
+the singularity itself.
+
+That should be impossible.
+
+The message contains mathematical sequences,
+energy measurements, and orbital patterns.
+
+No known language has been detected.
+
+The science team cannot explain who
+sent the signal.
+
+Or why.`,
+
+`CAPTAIN'S LOG 08
+
+Stardate 4732.1
+
+Engineering crews completed inspections
+of the reactor, thermal systems, and
+resource processors.
+
+The data suggests that every major system
+aboard the ship is operating efficiently.
+
+The truth is becoming difficult to ignore.
+
+Scientific observation, careful analysis,
+and evidence-based reasoning have solved
+every challenge encountered so far.
+
+Perhaps those same skills will reveal
+the true nature of the anomaly ahead.`,
+
+`CAPTAIN'S LOG 09
+
+Stardate 4734.9
+
+Sensors now confirm the black hole is not
+a naturally occurring object.
+
+Buried deep within the accretion disk lies
+an immense artificial structure.
+
+The object appears to manipulate energy
+on a scale humanity has never observed.
+
+Every attempt to scan the construct causes
+our instruments to malfunction.
+
+Some crew members want to leave.
+
+Others want to investigate.
+
+The debate continues.`,
+
+`CAPTAIN'S LOG 10
+
+Stardate 4735.4
+
+This may be my final entry.
+
+The anomaly has become increasingly active.
+
+Power fluctuations are spreading throughout
+the ship.
+
+If these logs are recovered, let the record
+show that science led us here.
+
+Every discovery was made through evidence.
+
+Every mystery was solved through inquiry.
+
+And if there is any hope of escaping,
+science will guide us home.
+
+End Log.`
+];
+
 const questions=[
 
 // REACTOR CORE
@@ -426,13 +630,21 @@ setTimeout(()=>{
 
 current++;
 
-if(current>=questions.length){
+if(current === 5 ||
+   current === 10 ||
+   current === 15){
 
-showEnding();
+    showCaptainLog();
+    return;
+
+}else if(current >= questions.length){
+
+    showCaptainLog(); // Final log before ending
+    return;
 
 }else{
 
-loadQuestion();
+    loadQuestion();
 
 }
 
@@ -450,6 +662,37 @@ function updateHull(){
 
     document.getElementById("statusBar").innerHTML =
         "Hull Integrity: " + hearts;
+}
+
+function showCaptainLog(){
+
+    if(currentLog >= captainLogs.length){
+        loadQuestion();
+        return;
+    }
+
+    document.getElementById("mission").innerHTML =
+        "📁 CAPTAIN'S LOG UNLOCKED";
+
+    document.getElementById("question").innerHTML =
+        captainLogs[currentLog];
+
+    document.getElementById("answers").innerHTML = "";
+    document.getElementById("feedback").innerHTML = "";
+
+    const btn = document.createElement("button");
+
+    btn.className = "answer";
+    btn.innerHTML = "Continue Mission";
+
+    btn.onclick = () => {
+        currentLog++;
+        loadQuestion();
+    };
+
+    document
+        .getElementById("answers")
+        .appendChild(btn);
 }
 
 function showEnding(){
