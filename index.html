@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Escape the Singularity</title>
+
+<style>
+
+body{
+    font-family:Arial, sans-serif;
+    background:#08111f;
+    color:white;
+    margin:0;
+}
+
+#game{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+}
+
+#mission{
+    font-size:24px;
+    color:#6fd3ff;
+    margin-bottom:10px;
+}
+
+#progressBar{
+    width:100%;
+    height:25px;
+    background:#333;
+    border-radius:15px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+#progress{
+    width:0%;
+    height:100%;
+    background:limegreen;
+}
+
+#question{
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+.answer{
+    width:100%;
+    padding:15px;
+    margin:10px 0;
+    font-size:18px;
+    cursor:pointer;
+}
+
+#feedback{
+    min-height:40px;
+    margin-top:10px;
+    font-size:20px;
+}
+
+#score{
+    margin-top:15px;
+    font-size:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+<h1>🚀 ESCAPE THE SINGULARITY 🚀</h1>
+
+<div id="mission"></div>
+
+<div id="progressBar">
+<div id="progress"></div>
+</div>
+
+<div id="question"></div>
+
+<div id="answers"></div>
+
+<div id="feedback"></div>
+
+<div id="score">
+Science Credits: 0
+</div>
+
+</div>
+
+<script>
+
+let score=0;
+let current=0;
+
+const questions=[
+
+// REACTOR CORE
+
+{
+mission:"REACTOR CORE",
+question:"Two cargo pods move at the same speed. One is much heavier. Which pod has greater kinetic energy?",
+answers:[
+"The heavier pod",
+"The lighter pod",
+"They have equal kinetic energy",
+"Neither has kinetic energy"
+],
+correct:0
+},
+
+{
+mission:"REACTOR CORE",
+question:"If an object doubles its speed, what happens to its kinetic energy?",
+answers:[
+"Goes down",
+"Usually increases greatly",
+"Stays the same",
+"Disappears"
+],
+correct:1
+},
+
+{
+mission:"REACTOR CORE",
+question:"Which vehicle likely has the most kinetic energy?",
+answers:[
+"Bike moving slowly",
+"School bus moving quickly",
+"Standing scooter",
+"Rolling basketball"
+],
+correct:1
+},
+
+{
+mission:"REACTOR CORE",
+question:"A spacecraft wants a larger kinetic energy. What should engineers increase?",
+answers:[
+"Mass or speed",
+"Color",
+"Temperature only",
+"Length only"
+],
+correct:0
+},
+
+{
+mission:"REACTOR CORE",
+question:"Which has the least kinetic energy?",
+answers:[
+"Parked truck",
+"Moving train",
+"Rolling bowling ball",
+"Flying baseball"
+],
+correct:0
+},
+
+// THERMAL CONTROL
+
+{
+mission:"THERMAL CONTROL",
+question:"When holding an ice pack, thermal energy moves:",
+answers:[
+"From your hand to the ice",
+"From ice to your hand",
+"In both directions equally",
+"Nowhere"
+],
+correct:0
+},
+
+{
+mission:"THERMAL CONTROL",
+question:"Two metal blocks have exactly the same temperature. They touch. What occurs?",
+answers:[
+"Rapid heat transfer",
+"No net heat transfer",
+"One melts",
+"Energy disappears"
+],
+correct:1
+},
+
+{
+mission:"THERMAL CONTROL",
+question:"Warm air rising in a room is an example of:",
+answers:[
+"Conduction",
+"Radiation",
+"Convection",
+"Reflection"
+],
+correct:2
+},
+
+{
+mission:"THERMAL CONTROL",
+question:"How does most solar energy reach Earth?",
+answers:[
+"Conduction",
+"Radiation",
+"Convection",
+"Friction"
+],
+correct:1
+},
+
+{
+mission:"THERMAL CONTROL",
+question:"Conduction requires:",
+answers:[
+"Direct contact",
+"Wind",
+"Sunlight",
+"Gravity"
+],
+correct:0
+},
+
+// SUSTAINABILITY
+
+{
+mission:"SUSTAINABILITY LAB",
+question:"Which resource can naturally replenish over time?",
+answers:[
+"Coal",
+"Petroleum",
+"Wind",
+"Natural gas"
+],
+correct:2
+},
+
+{
+mission:"SUSTAINABILITY LAB",
+question:"Which material originates directly from nature?",
+answers:[
+"Plastic bottle",
+"Cotton fiber",
+"Polyester",
+"Synthetic rubber"
+],
+correct:1
+},
+
+{
+mission:"SUSTAINABILITY LAB",
+question:"Recycling primarily helps by:",
+answers:[
+"Increasing waste",
+"Reducing resource use",
+"Eliminating energy use",
+"Creating pollution"
+],
+correct:1
+},
+
+{
+mission:"SUSTAINABILITY LAB",
+question:"A company wants greener products. What is the best strategy?",
+answers:[
+"Use renewable materials",
+"Avoid recycling",
+"Use more fossil fuels",
+"Increase waste"
+],
+correct:0
+},
+
+{
+mission:"SUSTAINABILITY LAB",
+question:"One limitation of solar power is:",
+answers:[
+"The Sun never shines",
+"It depends on conditions",
+"It cannot make electricity",
+"It only works underground"
+],
+correct:1
+},
+
+// JUMP DRIVE
+
+{
+mission:"JUMP DRIVE",
+question:"Where does a roller coaster have the greatest gravitational potential energy?",
+answers:[
+"Top of the highest hill",
+"Bottom of the track",
+"Middle of the ride",
+"At the station"
+],
+correct:0
+},
+
+{
+mission:"JUMP DRIVE",
+question:"A cart starts with 30 J of potential energy. Later it has 10 J PE. Assuming no losses, kinetic energy is:",
+answers:[
+"10 J",
+"20 J",
+"30 J",
+"40 J"
+],
+correct:1
+},
+
+{
+mission:"JUMP DRIVE",
+question:"Stretching a rubber band stores:",
+answers:[
+"Nuclear energy",
+"Elastic potential energy",
+"Sound energy",
+"Thermal energy"
+],
+correct:1
+},
+
+{
+mission:"JUMP DRIVE",
+question:"As a falling object speeds up, its potential energy generally:",
+answers:[
+"Increases",
+"Stays constant",
+"Decreases",
+"Doubles forever"
+],
+correct:2
+},
+
+{
+mission:"JUMP DRIVE",
+question:"Energy cannot be created or destroyed. This idea is called:",
+answers:[
+"Convection",
+"Conservation of energy",
+"Radiation",
+"Momentum transfer"
+],
+correct:1
+}
+
+];
+
+loadQuestion();
+
+function loadQuestion(){
+
+let q=questions[current];
+
+document.getElementById("mission").innerHTML=
+"Mission: "+q.mission;
+
+document.getElementById("question").innerHTML=
+q.question;
+
+document.getElementById("feedback").innerHTML="";
+
+let answers=document.getElementById("answers");
+answers.innerHTML="";
+
+q.answers.forEach((answer,index)=>{
+
+let btn=document.createElement("button");
+
+btn.className="answer";
+btn.innerHTML=answer;
+
+btn.onclick=()=>checkAnswer(index);
+
+answers.appendChild(btn);
+
+});
+
+let percent=(current/questions.length)*100;
+
+document.getElementById("progress").style.width=
+percent+"%";
+
+}
+
+function checkAnswer(choice){
+
+let q=questions[current];
+
+if(choice===q.correct){
+
+score+=100;
+
+document.getElementById("feedback").innerHTML=
+"✅ Correct! System Repair Successful.";
+
+}else{
+
+document.getElementById("feedback").innerHTML=
+"❌ Not quite. Review the science concept and try the next challenge.";
+}
+
+document.getElementById("score").innerHTML=
+"Science Credits: "+score;
+
+setTimeout(()=>{
+
+current++;
+
+if(current>=questions.length){
+
+showEnding();
+
+}else{
+
+loadQuestion();
+
+}
+
+},1200);
+
+}
+
+function showEnding(){
+
+document.getElementById("progress").style.width="100%";
+
+document.getElementById("mission").innerHTML=
+"MISSION COMPLETE";
+
+document.getElementById("question").innerHTML=
+`
+The Event Horizon has escaped the singularity.
+
+Final Science Credits:
+${score}
+
+Ship Status:
+✅ Reactor Online
+✅ Thermal Control Online
+✅ Sustainability Lab Online
+✅ Jump Drive Online
+
+Excellent work, Cadet.
+`;
+
+document.getElementById("answers").innerHTML=
+`<button class="answer"
+onclick="location.reload()">
+Play Again
+</button>`;
+
+document.getElementById("feedback").innerHTML="";
+}
+
+</script>
+
+</body>
+</html>
