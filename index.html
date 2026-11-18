@@ -875,51 +875,57 @@ document.getElementById("score").innerHTML=
 
 setTimeout(()=>{
 
-current++;
+setTimeout(() => {
 
-if(current == 4 || current == 8 || current == 12 || current == 16 || current == 20 || current == 24 || current == 28 || current == 32 || current == 36 || current == 40){
+    current++;
 
-showCaptainLog();
-return;
-}
+    // Show mission complete screens
+    if(current === 10){
+        showMissionComplete("REACTOR CORE");
+        return;
+    }
 
-if(current === 5){
- 
-showMissionComplete(
-"REACTOR CORE"
-);
- 
-return;
-}
- 
-if(current === 10){
- 
-showMissionComplete(
-"THERMAL CONTROL"
-);
- 
-return;
-}
- 
-if(current === 15){
- 
-showMissionComplete(
-"SUSTAINABILITY LAB"
-);
- 
-return;
-}else if(current >= questions.length){
+    if(current === 20){
+        showMissionComplete("THERMAL CONTROL");
+        return;
+    }
 
-    showEnding(); // Final log before ending
-    return;
+    if(current === 30){
+        showMissionComplete("SUSTAINABILITY LAB");
+        return;
+    }
 
-}else{
+    if(current === 40){
+
+        // Final captain log first
+        if(currentLog < captainLogs.length){
+            showCaptainLog();
+        } else {
+            showEnding();
+        }
+
+        return;
+    }
+
+    // Captain logs every four questions
+    if(
+        current === 4  ||
+        current === 8  ||
+        current === 12 ||
+        current === 16 ||
+        current === 20 ||
+        current === 24 ||
+        current === 28 ||
+        current === 32 ||
+        current === 36
+    ){
+        showCaptainLog();
+        return;
+    }
 
     loadQuestion();
 
-}
-
-},1200);
+}, 1200);
 
 }
 
@@ -1058,28 +1064,28 @@ function updateSystems(){
     document.getElementById("systems")
     .innerHTML =
 
-    (current>=5 ?
+    (current>=10 ?
     "🟢 Reactor Core<br>"
     :
     "🔴 Reactor Core<br>")
 
     +
 
-    (current>=10 ?
+    (current>=20 ?
     "🟢 Thermal Control<br>"
     :
     "🔴 Thermal Control<br>")
 
     +
 
-    (current>=15 ?
+    (current>=30 ?
     "🟢 Sustainability Lab<br>"
     :
     "🔴 Sustainability Lab<br>")
 
     +
 
-    (current>=20 ?
+    (current>=40 ?
     "🟢 Jump Drive"
     :
     "🔴 Jump Drive");
